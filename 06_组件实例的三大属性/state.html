@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="/js/react.development.js"></script>
+    <script type="text/javascript" src="/js/react-dom.development.js"></script>
+    <script type="text/javascript" src="/js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //创建组件 
+        class Weather extends React.Component{ 
+            constructor(props){ 
+                super(props) 
+                // 初始化状态
+                this.state = {isHot:true} 
+                //this.demo : 在实例对象中声明了一个demo函数
+                //this.changeWeather.biund(this) 在原型对象上查找到changeWeather方法，返回方法【函数】
+                this.demo = this.changeWeather.bind(this)
+        } 
+            render(){ 
+                // 读取状态
+                const {isHot} = this.state
+                // 不能写demo()这样接收的是demo函数的返回值
+                return <h1 onClick={this.demo}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+            } 
+
+            changeWeather(){
+                // changeWeather放在了：Weather的原型对象上，供实例使用
+                // 通过Weather实例调用changeWeather时，changeWeather中的this就是Weather实例
+                console.log('此处修改isHot的值')
+                console.log(this);
+            
+            }
+        } 
+        ReactDOM.render(<Weather/>,document.getElementById('test')) 
+        
+        // title.addEventListener('click',()=>{
+        //     console.log('标题被点击了')
+        // })
+
+        // const title = document.getElementById('title')
+        // title.onclick = () =>{
+        //     console.log('标题被点击了');
+        // }
+
+
+    </script>
+</body>
+
+</html>
